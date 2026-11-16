@@ -1,4 +1,4 @@
-#!/usr/bin/fish
+#!/usr/bin/env fish
 
 set WATCH_DIR "$HOME/.local/share/goverlay/gameconfig"
 
