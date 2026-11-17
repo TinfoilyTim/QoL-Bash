@@ -4,14 +4,18 @@
 # Configuration
 # ==============================================================================
 # Add all directories you want to observe here
-
-#Can add more sources
 set OBSERVED_PATHS \
     "/path/to/source1" \
     "/path/to/source2"
 
 # Directory where symlinks will be created/managed
-set TARGET_DIR "/path/to/uinified/dir"
+set TARGET_DIR "/path/to/target"
+
+# Add folder names (exact match) that you want the script to ignore
+set IGNORE_DIRS \
+    ".git" \
+    "lost+found" \
+    "temp_downloads"
 
 # ==============================================================================
 # Prerequisites & Setup
@@ -35,6 +39,12 @@ end
 # ==============================================================================
 function update_symlink
     set folder_name $argv[1]
+
+    # Check if this folder name is in our ignore list
+    if contains -- "$folder_name" $IGNORE_DIRS
+        return
+    end
+
     set found_path ""
 
     # Search across all observed paths for this folder name (first match wins)
